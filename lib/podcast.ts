@@ -1,4 +1,4 @@
-import { Podcast } from "@/interfaces/podcast/podcast";
+import { Entry, Podcast } from "@/interfaces/podcast/podcast";
 import { PodcastDetails } from "@/interfaces/podcast/podcast-details";
 import axios from 'axios';
 
@@ -7,10 +7,10 @@ const urls = {
     getPodcast: 'https://itunes.apple.com/lookup?id='
 }
 
-export const fetchPodcasts = async (): Promise<Podcast> => {
+export const fetchPodcasts = async (): Promise<Entry[]> => {
     const { data } = await axios.get<Podcast>(urls.getPodcasts)
 
-    return data;
+    return data.feed.entry;
 }
 
 export const fetchPodcast = async (id: string): Promise<PodcastDetails> => {

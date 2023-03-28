@@ -1,22 +1,20 @@
 import { PodcastDetails } from "@/interfaces/podcast/podcast-details";
 
 export const Table: React.FC<{ podcast: PodcastDetails }> = ({ podcast }) => {
+    const episodes = () => podcast.results.map((episode, index) => {
+        return (
+        <li key={episode.trackId}  className="rounded-md p-4">
+            <h3 className="font-semibold">{index + 1}. {episode.trackName}</h3>
+        </li>
+        )
+    })
+
     return (
-        <table className="w-full">
-            <thead>
-                <tr>
-                    <th className="text-left text-xl font-semibold pb-4">Title</th>
-                </tr>
-            </thead>
-            <tbody>
-                {podcast.results.map((episode) => (
-                    <tr key={episode.trackId} className="border-b border-gray-300 py-4">
-                    <td className="py-4">
-                        <h2 className="text-xl font-semibold mb-2">{episode.trackName}</h2>
-                    </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div>
+            <h3>Episodes</h3>
+            <ul className="space-y-4">
+                {episodes()}
+            </ul>
+        </div>
     )
 }

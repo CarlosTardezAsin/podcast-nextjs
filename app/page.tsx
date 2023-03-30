@@ -1,9 +1,7 @@
 export default function Home() {
   return (
-    <main>
-      <div>
+      <div className='container'>
         Hello World
       </div>
-    </main>
   )
 }

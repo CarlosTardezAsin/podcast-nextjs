@@ -16,16 +16,22 @@ export default function PodcastsPage() {
     useEffect(() => {
     }, [search])
 
-    const podcastsCardFiltered = () => podcasts?.filter(podcast => podcast.title.label.toLowerCase().includes(search)).map(podcast => <CardList key={podcast.id.attributes["im:id"]} podcast={podcast}/>)
+    const podcastsCardFiltered = () => podcasts?.filter(podcast => podcast.title.label.toLowerCase().includes(search))
+        .map(podcast => <CardList key={podcast.id.attributes["im:id"]} podcast={podcast}/>)
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-4xl font-bold mb-8">Podcasts</h1>
-            <div className="mb-8">
-                <Search setSearch={setSearch}/>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {podcastsCardFiltered()}
+        <div className="container-fluid">
+            <div className="col-12">
+                <div className="d-flex flex-column align-items-center mb-3">
+                    <Search setSearch={setSearch}/>    
+                </div>      
+            </div> 
+            <div className="col-12">
+                <div className="container">
+                    <div className="row row-cols-1 row-cols-md-5 g-4">
+                        {podcastsCardFiltered()}
+                    </div>
+                </div>
             </div>
         </div>
     );

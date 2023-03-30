@@ -5,11 +5,11 @@ export const CardDetails: React.FC<{ podcast: PodcastDetails }> = ({ podcast }) 
     const collectionImg = podcast.results[0].artworkUrl600;
 
     return (
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="card" style={{ width: 300 }}>
             <Image src={collectionImg} width={300} height={300} alt={collectionImg} />
-            <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{podcast.results[0].collectionName}</h2>
-                <h2 className="text-xl font-semibold mb-2">by {podcast.results[0].artistName}</h2>
+            <div className="card-body" style={{ overflow: 'hidden' }}>
+                <p className="card-text">{podcast.results[0].collectionName}</p>
+                <p className="card-text">By {podcast.results[0].artistName}</p>
             </div>
         </div>
     );

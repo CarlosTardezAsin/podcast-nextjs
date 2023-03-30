@@ -1,6 +1,6 @@
 import { CardDetails } from "@/components/podcast/card-details";
-import { Table } from "@/components/podcast/table";
-import { fetchPodcast, fetchPodcasts } from "@/lib/podcast";
+import { List } from "@/components/podcast/list";
+import { fetchPodcast, fetchPodcastEpisodes, fetchPodcasts } from "@/lib/podcast";
 
 export async function generateStaticParams() {
     const entry = await fetchPodcasts();
@@ -10,21 +10,23 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function getPodcast(id: string) {
+async function getPodcast(id: string) {
     return fetchPodcast(id);
 }
 
-
 export default async function Podcast({ params }: { params: { podcast: string } }) {
-    const podcast = await getPodcast(params.podcast);
+    const podcast = await fetchPodcast(params.podcast);
+    const podcastEpisodes = await fetchPodcastEpisodes(podcast.results[0].feedUrl)
 
     return (
-        <div className="container mx-auto py-8 px-4 flex">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <CardDetails podcast={podcast}/>
-            </div>    
-            <div>
-                <Table podcast={podcast}/>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-3 mb-3">
+                    <CardDetails podcast={podcast}/>
+                </div>    
+                <div className="col-md-9">
+                    <List podcast={podcast}/>
+                </div>
             </div>
         </div>
     )

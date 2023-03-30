@@ -2,7 +2,7 @@ import { ChangeEvent } from "react"
 
 export const Search: React.FC<{ setSearch: any }> = ({ setSearch })  => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value)
+        setSearch(event.target.value.toLowerCase())
     }
     
     return (
@@ -10,7 +10,8 @@ export const Search: React.FC<{ setSearch: any }> = ({ setSearch })  => {
             <input
             id="search"
             type="search"
-            className="w-[300px] px-4 py-2 rounded-lg shadow-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="form-control me-2"
+            style={{ width: 400 }}
             placeholder="Search..."
             onChange={e => handleChange(e)}
             />

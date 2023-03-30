@@ -1,5 +1,6 @@
 import { Entry, Podcast } from "@/interfaces/podcast/podcast";
 import { PodcastDetails } from "@/interfaces/podcast/podcast-details";
+import { parseXml, XML } from "@/utils/parse-xml";
 import axios from 'axios';
 
 const urls = {
@@ -17,4 +18,12 @@ export const fetchPodcast = async (id: string): Promise<PodcastDetails> => {
     const { data } = await axios.get<PodcastDetails>(`${urls.getPodcast}${id}`)
     
     return data;
+}
+
+export const fetchPodcastEpisodes = async (url: string): Promise<any> => {
+    const { data } = await axios.get(url);
+
+    const object = await parseXml(data as XML);
+
+    return object.rss.channel;
 }

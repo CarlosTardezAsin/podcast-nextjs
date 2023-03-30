@@ -34,6 +34,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'is5-ssl.mzstatic.com',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imgs.search.brave.com',
+        pathname: '/**',
       }
     ],
   }

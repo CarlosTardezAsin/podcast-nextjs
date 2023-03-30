@@ -1,7 +1,9 @@
+import axios from 'axios';
+import { convertableToString } from "xml2js";
+import { parseXml, XML } from "@/utils/parse-xml";
 import { Entry, Podcast } from "@/interfaces/podcast/podcast";
 import { PodcastDetails } from "@/interfaces/podcast/podcast-details";
-import { parseXml, XML } from "@/utils/parse-xml";
-import axios from 'axios';
+import { PodcastDetailsEpisodes, PodcastEpisodes } from "@/interfaces/podcast/podcast-details-episodes";
 
 const urls = {
     getPodcasts: 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
@@ -20,10 +22,10 @@ export const fetchPodcast = async (id: string): Promise<PodcastDetails> => {
     return data;
 }
 
-export const fetchPodcastEpisodes = async (url: string): Promise<any> => {
-    const { data } = await axios.get(url);
+export const fetchPodcastEpisodes = async (url: string): Promise<PodcastDetailsEpisodes[]> => {
+    const { data } = await axios.get<convertableToString>(url);
 
-    const object = await parseXml(data as XML);
+    const { rss } = await parseXml<PodcastEpisodes>(data as XML);
 
-    return object.rss.channel;
+    return rss.channel;
 }

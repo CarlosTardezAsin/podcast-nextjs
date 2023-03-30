@@ -25,7 +25,7 @@ export default async function Podcast({ params }: { params: { podcast: string } 
                     <CardDetails podcast={podcast}/>
                 </div>    
                 <div className="col-md-9">
-                    <List podcast={podcast}/>
+                    <List items={podcastEpisodes[0].item}/>
                 </div>
             </div>
         </div>

@@ -1,10 +1,10 @@
-import { PodcastDetails } from "@/interfaces/podcast/podcast-details";
+import { Item } from "@/interfaces/podcast/item";
 
-export const List: React.FC<{ podcast: PodcastDetails }> = ({ podcast }) => {
-    const episodes = () => podcast.results.map((episode, index) => {
+export const List: React.FC<{ items: Item[] }> = ({ items }) => {
+    const episodes = () => items.map((item) => {
         return (
-            <li key={episode.trackId}  className="list-group-item">
-                {index + 1}. {episode.trackName}
+            <li key={item.guid[0]._}  className="list-group-item">
+                {item.title}
             </li>
         )
     })

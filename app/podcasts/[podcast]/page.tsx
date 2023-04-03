@@ -10,10 +10,6 @@ export async function generateStaticParams() {
     }));
 }
 
-async function getPodcast(id: string) {
-    return fetchPodcast(id);
-}
-
 export default async function Podcast({ params }: { params: { podcast: string } }) {
     const podcast = await fetchPodcast(params.podcast);
     const podcastEpisodes = await fetchPodcastEpisodes(podcast.results[0].feedUrl)
@@ -25,7 +21,7 @@ export default async function Podcast({ params }: { params: { podcast: string } 
                     <CardDetails podcast={podcast}/>
                 </div>    
                 <div className="col-md-9">
-                    <List items={podcastEpisodes[0].item}/>
+                    <List podcastId={podcast.results[0].collectionId} items={podcastEpisodes[0].item}/>
                 </div>
             </div>
         </div>

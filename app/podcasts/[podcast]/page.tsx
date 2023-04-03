@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { CardDetails } from "@/components/podcast/card-details";
 import { List } from "@/components/podcast/list";
 import { fetchPodcast, fetchPodcastEpisodes, fetchPodcasts } from "@/lib/podcast";
@@ -10,9 +11,23 @@ export async function generateStaticParams() {
     }));
 }
 
+async function fetchData(podcastId: string) {
+    try {
+      const podcast = await fetchPodcast(podcastId);
+      const podcastEpisodes = await fetchPodcastEpisodes(podcast.results[0].feedUrl);
+  
+      return { podcast, podcastEpisodes };
+    } catch (error) {
+      console.error(error);
+      return { podcast: null, podcastEpisodes: null };
+    }
+}
+
 export default async function Podcast({ params }: { params: { podcast: string } }) {
-    const podcast = await fetchPodcast(params.podcast);
-    const podcastEpisodes = await fetchPodcastEpisodes(podcast.results[0].feedUrl)
+    const { podcast, podcastEpisodes } = await fetchData(params.podcast)
+    if(!podcast || !podcastEpisodes) {
+        notFound();
+    }
 
     return (
         <div className="container">
